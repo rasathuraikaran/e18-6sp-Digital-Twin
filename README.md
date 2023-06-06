@@ -33,17 +33,12 @@ app.py
 
 # Features that need to deveolop
 
-1. Interactive Ui
+1. Interactive UI
 
 
 
 
 
-# it parially done.   you can install app by
-
-```
-https://play.google.com/store/apps/details?id=com.academind.CakeDA&hl=en&gl=US
-```
 
 
 

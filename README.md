@@ -18,14 +18,17 @@ git clone https://github.com/rasathuraikaran/CakeOrderApp.git
 ```
 
 
-### run the app.py file
-```
-app.py
-```
+
 
 ### Install the required dependencies using the requirements.txt file. using the following command:
 ```
 pip install -r requirements.txt
+```
+
+
+### run the app.py file
+```
+app.py
 ```
 
 # Features that need to deveolop

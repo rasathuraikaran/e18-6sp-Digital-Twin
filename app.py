@@ -12,6 +12,7 @@ import plotly.express as px
 import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output, State
+import socket
 
 base_url = "http://agbc-fe.pdn.ac.lk/api/v1/data/?sensor=10008&date="
 

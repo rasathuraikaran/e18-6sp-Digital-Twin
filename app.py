@@ -142,7 +142,8 @@ app.layout = html.Div(
             value=merged_df.columns[0]
         )
     ], style={'width': '30%', 'display': 'inline-block'}),
-    
+    html.Br(),
+    html.Br(),
     html.Div([
         html.Label('Feature 2 (Y-axis)'),
         dcc.Dropdown(
@@ -156,23 +157,57 @@ app.layout = html.Div(
     
     # Wine quality prediction based on input feature values
     html.H3("Internal Temperature Prediction"),
-    html.Div([
-        html.Label("External Temperature"),
-        dcc.Input(id='externalTemperature', type='number', required=True),    
-        html.Label("Feels Like"),
-        dcc.Input(id='feelsLike', type='number', required=True), 
-        html.Label("Pressure"),
-        dcc.Input(id='pressure', type='number', required=True),
-        html.Br(),
-        
-        html.Label("External Humidity"),
-        dcc.Input(id='externalHumidity', type='number', required=True),  
-        html.Label("Dew Point"),
-        dcc.Input(id='dewPoint', type='number', required=True), 
-       
-        
-     
-    ]),
+    html.Div(className="form-group", children=[
+    html.Label("External Temperature : "),
+    dcc.Input(
+        id='externalTemperature',
+        type='number',
+        required=True,
+        className="form-control"
+    )
+]),
+html.Br(),
+html.Div(className="form-group", children=[
+    html.Label("Feels Like : ",style={'margin-bottom': '5px'}),
+    dcc.Input(
+        id='feelsLike',
+        type='number',
+        required=True,
+        className="form-control",style={'margin-bottom': '5px'}
+    )
+]),
+html.Br(),
+html.Div(className="form-group", children=[
+    html.Label("Pressure : "),
+    dcc.Input(
+        id='pressure',
+        type='number',
+        required=True,
+        className="form-control"
+    )
+]),
+html.Br(),
+html.Div(className="form-group", children=[
+    html.Label("External Humidity : "),
+    dcc.Input(
+        id='externalHumidity',
+        type='number',
+        required=True,
+        className="form-control"
+    )
+]),
+html.Br(),
+html.Div(className="form-group", children=[
+    html.Label("Dew Point : "),
+    dcc.Input(
+        id='dewPoint',
+        type='number',
+        required=True,
+        className="form-control"
+    )
+]),
+html.Br(),
+
 
     html.Div([
         html.Button('Predict', id='predict-button', n_clicks=0),
@@ -220,10 +255,13 @@ def predict_quality(n_clicks, externalTemperature, feelsLike, pressure, external
     temp_prediction = prediction[0, 0]
     humidity_prediction = prediction[0, 1]
     light_prediction = prediction[0, 2]
+    print(temp_prediction)
+    
     if temp_prediction > 30:
-        return 'Turn on the fan. Prediction: ' + str(temp_prediction)
+        return 'Turn on the fan. Prediction temperature : ' + str(temp_prediction)
+
     else:
-        return 'Turn off the fan. Prediction: ' + str(temp_prediction)
+        return 'Turn off the fan. Prediction temperature: ' + str(temp_prediction)
 
 
 if __name__ == '__main__':

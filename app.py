@@ -56,7 +56,7 @@ execution_time = end_time - start_time
 
 print("Execution Time:", execution_time, "seconds")
 
-# Create the DataFrame from the collected data
+# # Create the DataFrame from the collected data
 df = pd.DataFrame(all_data, dtype=str)
 import numpy as np
 # Replace '?' with NaN
@@ -106,23 +106,38 @@ merged_df = pd.merge(external_weather, new_df_hourly, on='datetime')
 merged_df.dropna(inplace=True)
 
 
-from sklearn.model_selection import train_test_split
+# from sklearn.model_selection import train_test_split
 
-columns_to_drop = ['average_internal_temp', 'average_internal_humidity', 'light', 'Clouds', 'Wind Speed','Description']
-X = merged_df.drop(columns_to_drop, axis=1)
-print(X.dtypes)
-y = merged_df[['average_internal_temp', 'average_internal_humidity', 'light']]
+# columns_to_drop = ['average_internal_temp', 'average_internal_humidity', 'light', 'Clouds', 'Wind Speed','Description']
+# X = merged_df.drop(columns_to_drop, axis=1)
+# print(X.dtypes)
+# y = merged_df[['average_internal_temp', 'average_internal_humidity', 'light']]
 
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
+# from sklearn.linear_model import LinearRegression
+# from sklearn.model_selection import train_test_split
 
-# Splitting dataset into training and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, )
-model = LinearRegression()
-# Training the linear regression model
-model.fit(X_train, y_train)
-model.score(X_test,y_test)
-print(model.score(X_test,y_test))
+# # Splitting dataset into training and test sets
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, )
+# model = LinearRegression()
+# # Training the linear regression model
+# model.fit(X_train, y_train)
+# model.score(X_test,y_test)
+# print(model.score(X_test,y_test))
+import numpy as np
+from tensorflow.keras import layers, models, optimizers
+
+# Prepare new input data (example)
+new_input = np.array([[25.0, 1013.0, 60.0, 15.0, 40.0, 10.0]], dtype='float32')
+new_input = new_input.reshape(-1, 6, 1, 1)
+
+# Load the trained model
+model = models.load_model('ML Part/model.h5')
+
+# Make predictions
+predictions = model.predict(new_input)
+
+# Print the predictions
+print(f"Predicted values: {predictions}")
 
 # Create the Dash app
 app = dash.Dash(__name__)
@@ -245,14 +260,19 @@ def update_correlation_plot(x_feature, y_feature):
 def predict_quality(n_clicks, externalTemperature, feelsLike, pressure, externalHumidity,
                      dewPoint):
     # Create input features array for prediction
-    input_features = np.array([externalTemperature, feelsLike, pressure, externalHumidity, dewPoint, 
-                               ]).reshape(1, -1)
+    # input_features = np.array([externalTemperature, feelsLike, pressure, externalHumidity, dewPoint, 
+    #                            ]).reshape(1, -1)
+    new_input = np.array([[externalTemperature, feelsLike, pressure, externalHumidity, dewPoint, 40.0]], dtype='float32')
+    new_input = new_input.reshape(-1, 6, 1, 1)
 
+    print(externalTemperature)
+    print( pressure)
     # Predict the wine quality (0 = bad, 1 = good)
-    prediction = model.predict(input_features)
+    prediction = model.predict(new_input)
 
     # Return the prediction
     # Return the prediction
+    print(prediction)
     temp_prediction = prediction[0, 0]
     humidity_prediction = prediction[0, 1]
     light_prediction = prediction[0, 2]
@@ -260,6 +280,7 @@ def predict_quality(n_clicks, externalTemperature, feelsLike, pressure, external
     
     if temp_prediction > 30:
         return 'Turn on the fan. Prediction temperature : ' + str(temp_prediction)
+
 
     else:
         return 'Turn off the fan. Prediction temperature: ' + str(temp_prediction)

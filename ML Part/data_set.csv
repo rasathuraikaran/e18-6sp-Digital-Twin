@@ -1,3 +1,12 @@
+
+Test data 
+
+datetime,External Temperature,Feels Like,Pressure,External Humidity,Dew Point,Clouds,Wind Speed,Description,average_internal_temp,average_internal_humidity,light
+2020-10-22 00:00:00,22.46,23.21,1009,84,19.85,40,0.0,scattered clouds,26.21,96.3, 1.042   //27.005 
+2020-10-24 13:00:00,24.47,25.27,1010,83,22.37,75,1.35,broken clouds,30.9,84.93333333333334, 9219.58   //31.32
+
+
+
 datetime,External Temperature,Feels Like,Pressure,External Humidity,Dew Point,Clouds,Wind Speed,Description,average_internal_temp,average_internal_humidity,light
 2020-10-22 00:00:00,22.69,23.21,1009,84,19.85,40,0.0,scattered clouds,23.433333333333334,96.3, 1.042
 2020-10-22 01:00:00,22.71,23.46,1011,93,21.52,70,2.34,broken clouds,23.3,96.36666666666667, 1.042

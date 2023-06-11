@@ -21,7 +21,6 @@ port = 1883
 username = "e18-team"
 password = "pera@e18"
 
-
 base_url = "http://agbc-fe.pdn.ac.lk/api/v1/data/?sensor=10008&date="
 
 start_date = pd.to_datetime("2020-10-22")
@@ -64,7 +63,7 @@ execution_time = end_time - start_time
 
 print("Execution Time:", execution_time, "seconds")
 
-# # Create the DataFrame from the collected data
+# Create the DataFrame from the collected data
 df = pd.DataFrame(all_data, dtype=str)
 import numpy as np
 # Replace '?' with NaN
@@ -114,42 +113,29 @@ merged_df = pd.merge(external_weather, new_df_hourly, on='datetime')
 merged_df.dropna(inplace=True)
 
 
-# from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 
-# columns_to_drop = ['average_internal_temp', 'average_internal_humidity', 'light', 'Clouds', 'Wind Speed','Description']
-# X = merged_df.drop(columns_to_drop, axis=1)
-# print(X.dtypes)
-# y = merged_df[['average_internal_temp', 'average_internal_humidity', 'light']]
+columns_to_drop = ['average_internal_temp', 'average_internal_humidity', 'light', 'Clouds', 'Wind Speed','Description']
+X = merged_df.drop(columns_to_drop, axis=1)
+print(X.dtypes)
+y = merged_df[['average_internal_temp', 'average_internal_humidity', 'light']]
 
-# from sklearn.linear_model import LinearRegression
-# from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 
-# # Splitting dataset into training and test sets
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, )
-# model = LinearRegression()
-# # Training the linear regression model
-# model.fit(X_train, y_train)
-# model.score(X_test,y_test)
-# print(model.score(X_test,y_test))
-import numpy as np
-from tensorflow.keras import layers, models, optimizers
-
-# Prepare new input data (example)
-new_input = np.array([[25.0, 1013.0, 60.0, 15.0, 40.0, 10.0]], dtype='float32')
-new_input = new_input.reshape(-1, 6, 1, 1)
-
-# Load the trained model
-model = models.load_model('ML Part/model.h5')
-
-# Make predictions
-predictions = model.predict(new_input)
-
-# Print the predictions
-print(f"Predicted values: {predictions}")
+# Splitting dataset into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, )
+model = LinearRegression()
+# Training the linear regression model
+model.fit(X_train, y_train)
+model.score(X_test,y_test)
+print(model.score(X_test,y_test))
 
 # Create the Dash app
 app = dash.Dash(__name__)
 server = app.server
+
+
 
 # Callback functions
 def on_connect(client, userdata, flags, rc):
@@ -192,6 +178,7 @@ client.connect(broker, port, 60)
 
 # Start the MQTT client loop
 client.loop_start()
+# Define the layout of the dashboard
 # Define the layout of the dashboard
 app.layout = html.Div(
     children=[
@@ -280,7 +267,8 @@ html.Br(),
 
     html.Div([
         html.H4("Predicted Quality"),
-        html.Div(id='prediction-output')
+        html.Div(id='prediction-output'),
+        
     ])
 ])
 
@@ -294,7 +282,6 @@ def update_correlation_plot(x_feature, y_feature):
     fig = px.scatter(merged_df, x=x_feature, y=y_feature, color='average_internal_temp')
     fig.update_layout(title=f"Correlation between {x_feature} and {y_feature}")
     return fig
-
 
 # Define the callback function to predict wine quality
 @app.callback(
@@ -310,19 +297,14 @@ def update_correlation_plot(x_feature, y_feature):
 def predict_quality(n_clicks, externalTemperature, feelsLike, pressure, externalHumidity,
                      dewPoint):
     # Create input features array for prediction
-    # input_features = np.array([externalTemperature, feelsLike, pressure, externalHumidity, dewPoint, 
-    #                            ]).reshape(1, -1)
-    new_input = np.array([[externalTemperature, feelsLike, pressure, externalHumidity, dewPoint, 40.0]], dtype='float32')
-    new_input = new_input.reshape(-1, 6, 1, 1)
+    input_features = np.array([externalTemperature, feelsLike, pressure, externalHumidity, dewPoint, 
+                               ]).reshape(1, -1)
 
-    print(externalTemperature)
-    print( pressure)
     # Predict the wine quality (0 = bad, 1 = good)
-    prediction = model.predict(new_input)
+    prediction = model.predict(input_features)
 
     # Return the prediction
     # Return the prediction
-    print(prediction)
     temp_prediction = prediction[0, 0]
     humidity_prediction = prediction[0, 1]
     light_prediction = prediction[0, 2]
@@ -330,14 +312,68 @@ def predict_quality(n_clicks, externalTemperature, feelsLike, pressure, external
     
     if temp_prediction > 30:
         client.publish("v0/controller/1000/blower", "1")
-        return 'Turn on the fan. Prediction temperature : ' + str(temp_prediction)
 
+        return 'Turn on the fan. Prediction temperature : ' + str(temp_prediction)
 
     else:
         client.publish("v0/controller/1000/blower", "0")
+
         return 'Turn off the fan. Prediction temperature: ' + str(temp_prediction)
 
 
 if __name__ == '__main__':
     app.run_server(debug=False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# from sklearn.model_selection import train_test_split
+
+# columns_to_drop = ['average_internal_temp', 'average_internal_humidity', 'light', 'Clouds', 'Wind Speed','Description']
+# X = merged_df.drop(columns_to_drop, axis=1)
+# print(X.dtypes)
+# y = merged_df[['average_internal_temp', 'average_internal_humidity', 'light']]
+
+# from sklearn.linear_model import LinearRegression
+# from sklearn.model_selection import train_test_split
+
+# # Splitting dataset into training and test sets
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, )
+# model = LinearRegression()
+# # Training the linear regression model
+# model.fit(X_train, y_train)
+# model.score(X_test,y_test)
+# print(model.score(X_test,y_test))
+
+
+
+
+
 

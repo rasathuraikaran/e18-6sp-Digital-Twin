@@ -267,7 +267,8 @@ html.Br(),
 
     html.Div([
         html.H4("Predicted Quality"),
-        html.Div(id='prediction-output')
+        html.Div(id='prediction-output'),
+        
     ])
 ])
 

@@ -3,6 +3,7 @@ import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 from tqdm import tqdm
 import time
+import paho.mqtt.client as mqtt
 # Import relevant libraries
 import pandas as pd
 import numpy as np
@@ -135,49 +136,6 @@ print(model.score(X_test,y_test))
 app = dash.Dash(__name__)
 server = app.server
 
-
-
-# Callback functions
-def on_connect(client, userdata, flags, rc):
-    print("Connected with result code " + str(rc))
-    # Subscribe to topics after connection is successful
-    client.subscribe("v1/controller/1000/blower")
-    client.subscribe("v1/controller/1000/mist")
-    print("kaarna")
-
-def on_message(client, userdata, msg):
-    print("Received message: " + msg.topic + " " + str(msg.payload))
-
-    # Process the received message and take action accordingly
-    if msg.topic == "10/controller/1000/blower":
-        if msg.payload == b'1':
-            # Code for turning on the blower
-            print("Blower turned on")
-        elif msg.payload == b'0':
-            # Code for turning off the blower
-            print("Blower turned off")
-
-    elif msg.topic == "v1/controller/1000/mist":
-        if msg.payload == b'1':
-            # Code for turning on the mist
-            print("Mist turned on")
-        elif msg.payload == b'0':
-            # Code for turning off the mist
-            print("Mist turned off")
-
-# Create MQTT client and set callback functions
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
-
-# Set username and password for MQTT broker
-client.username_pw_set(username, password)
-
-# Connect to MQTT broker
-client.connect(broker, port, 60)
-
-# Start the MQTT client loop
-client.loop_start()
 # Define the layout of the dashboard
 # Define the layout of the dashboard
 app.layout = html.Div(
@@ -309,73 +267,16 @@ def predict_quality(n_clicks, externalTemperature, feelsLike, pressure, external
     humidity_prediction = prediction[0, 1]
     light_prediction = prediction[0, 2]
     print(temp_prediction)
+    print(humidity_prediction)
+    
     
     if temp_prediction > 30:
-        client.publish("v1/controller/1000/blower", "1")
-        client.publish("v1/controller/1000/mist", "1")
-
         return 'Turn on the fan. Prediction temperature : ' + str(temp_prediction)
 
     else:
-        client.publish("v1/controller/1000/blower", "0")
-        client.publish("v1/controller/1000/mist", "0")
-
         return 'Turn off the fan. Prediction temperature: ' + str(temp_prediction)
 
 
 if __name__ == '__main__':
     app.run_server(debug=False)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# from sklearn.model_selection import train_test_split
-
-# columns_to_drop = ['average_internal_temp', 'average_internal_humidity', 'light', 'Clouds', 'Wind Speed','Description']
-# X = merged_df.drop(columns_to_drop, axis=1)
-# print(X.dtypes)
-# y = merged_df[['average_internal_temp', 'average_internal_humidity', 'light']]
-
-# from sklearn.linear_model import LinearRegression
-# from sklearn.model_selection import train_test_split
-
-# # Splitting dataset into training and test sets
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, )
-# model = LinearRegression()
-# # Training the linear regression model
-# model.fit(X_train, y_train)
-# model.score(X_test,y_test)
-# print(model.score(X_test,y_test))
-
-
-
-
-
 

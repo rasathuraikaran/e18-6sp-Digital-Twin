@@ -141,15 +141,15 @@ server = app.server
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
     # Subscribe to topics after connection is successful
-    client.subscribe("v0/controller/1000/blower")
-    client.subscribe("v0/controller/1000/mist")
+    client.subscribe("v1/controller/1000/blower")
+    client.subscribe("v1/controller/1000/mist")
     print("kaarna")
 
 def on_message(client, userdata, msg):
     print("Received message: " + msg.topic + " " + str(msg.payload))
 
     # Process the received message and take action accordingly
-    if msg.topic == "v0/controller/1000/blower":
+    if msg.topic == "10/controller/1000/blower":
         if msg.payload == b'1':
             # Code for turning on the blower
             print("Blower turned on")
@@ -157,7 +157,7 @@ def on_message(client, userdata, msg):
             # Code for turning off the blower
             print("Blower turned off")
 
-    elif msg.topic == "v0/controller/1000/mist":
+    elif msg.topic == "v1/controller/1000/mist":
         if msg.payload == b'1':
             # Code for turning on the mist
             print("Mist turned on")
@@ -311,12 +311,14 @@ def predict_quality(n_clicks, externalTemperature, feelsLike, pressure, external
     print(temp_prediction)
     
     if temp_prediction > 30:
-        client.publish("v0/controller/1000/blower", "1")
+        client.publish("v1/controller/1000/blower", "1")
+        client.publish("v1/controller/1000/mist", "1")
 
         return 'Turn on the fan. Prediction temperature : ' + str(temp_prediction)
 
     else:
-        client.publish("v0/controller/1000/blower", "0")
+        client.publish("v1/controller/1000/blower", "0")
+        client.publish("v1/controller/1000/mist", "0")
 
         return 'Turn off the fan. Prediction temperature: ' + str(temp_prediction)
 

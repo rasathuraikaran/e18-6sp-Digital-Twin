@@ -553,7 +553,7 @@ section {
 }
 
 #about .about-img img {
-  width: 100%;
+  width: 40%;
   border: 8px solid #fff;
   transition: 0.5s;
 }

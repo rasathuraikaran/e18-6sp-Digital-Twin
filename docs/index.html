@@ -50,39 +50,18 @@
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
                     <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                    <li><a class="nav-link scrollto" href="#about">About</a></li>
-                    <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                    <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
+                    <li><a class="nav-link scrollto" href="#about">Problem Domain</a></li>
+                    <li><a class="nav-link scrollto" href="#services">Solution</a></li>
+                    <li><a class="nav-link scrollto " href="#portfolio">Current System</a></li>
                     <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                    <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a href="#">Drop Down 1</a></li>
-                            <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                                <ul>
-                                    <li><a href="#">Deep Drop Down 1</a></li>
-                                    <li><a href="#">Deep Drop Down 2</a></li>
-                                    <li><a href="#">Deep Drop Down 3</a></li>
-                                    <li><a href="#">Deep Drop Down 4</a></li>
-                                    <li><a href="#">Deep Drop Down 5</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Drop Down 2</a></li>
-                            <li><a href="#">Drop Down 3</a></li>
-                            <li><a href="#">Drop Down 4</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="nav-link scrollto" href="#footer">Contact</a></li>
+
+                    <li><a class="nav-link scrollto" href="#footer">Extendability</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
             <!-- .navbar -->
 
-            <div class="social-links">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            </div>
+
 
         </div>
     </header>
@@ -110,30 +89,29 @@
 
     <main id="main ">
 
+
         <!-- ======= About Section ======= -->
         <section id="about " class="about ">
 
             <div class="container " data-aos="fade-up ">
                 <div class="row ">
+                    <img src="assets/img/ji.jpg" style="width: 500px; height: 500px;" alt="Responsive image">
 
-                    <div class="col-lg-5 col-md-6 ">
-                        <div class="about-img " data-aos="fade-right " data-aos-delay="100 ">
-                            <img src="assets/img/about-img.jpg " alt=" ">
-                        </div>
-                    </div>
 
                     <div class="col-lg-7 col-md-6 ">
                         <div class="about-content " data-aos="fade-left " data-aos-delay="100 ">
                             <h2>Problem Domain</h2>
-                            <p>In our agricultural project, we aim to address multiple challenges. Firstly, we focus on predicting and optimizing the operation costs in greenhouses, specifically electricity and water costs. By utilizing the capabilities
-                                of our digital twin, we track parameters such as 'fan on time' and 'mist on time', enabling us to accurately estimate the associated expenses for each trial. Secondly, we recognize the impact of frequent power cuts in our
-                                country, which hinders our understanding of greenhouse behavior under such circumstances. Through the digital twin simulation, we can gain valuable insights into how greenhouses perform during power outages, allowing us
-                                to prepare and optimize operations for such unpredictable situations. Finally, we incorporate weather forecast data into our system. By leveraging this information, smart farmers can make timely decisions to optimize their
-                                greenhouse operations, ensuring optimal resource utilization and crop productivity. Our solution empowers farmers with proactive planning, cost prediction, and resilience in the face of uncertain weather and power conditions</p>
+                            <p> Greenhouses are designed to provide a controlled environment for plant growth. However, external factors such as temperature fluctuations can make it difficult to maintain these conditions.</p>
+
                             <ul>
-                                <li><i class="bi bi-check-circle "></i> we focus on predicting and optimizing the operation costs in greenhouses</li>
-                                <li><i class="bi bi-check-circle "></i> we track parameters such as 'fan on time' and 'mist on time',.</li>
-                                <li><i class="bi bi-check-circle "></i> enabling us to accurately estimate the associated expenses for each trial.</li>
+                                <li><i class="bi bi-check-circle "></i> Reduced plant growth
+                                </li>
+                                <li><i class="bi bi-check-circle "></i> Increased risk of disease
+                                </li>
+                                <li><i class="bi bi-check-circle "></i> Lower yields
+                                </li>
+                                <li><i class="bi bi-check-circle "></i>Higher costs
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -143,7 +121,57 @@
         </section>
         <!-- End About Section -->
 
+        <div class="container" data-aos="fade-up">
+            <div class="row gy-4 mt-5 d-flex flex-row-reverse">
 
+                <div class="col-lg-6 ps-lg-5">
+                    <h3 class="d-flex justify-content-lg-end">Our Solution</h3>
+                    <hr>
+                    <img src="assets/img/k.png" class="img-fluid rounded-4 mb-4" alt="">
+
+                </div>
+
+                <div class="col-lg-6 pt-lg-5">
+                    <div class="content ps-0 pe-lg-0">
+                        <p class="fst-italic"></p>
+
+                        <h4>
+                            Path
+                        </h4>
+
+                        <ul>
+                            <li><i class="bi bi-check-circle "></i>Collect and preprocess Data and analyze
+                            </li>
+                            <li><i class="bi bi-check-circle "></i>Build, and Train ML models
+                            </li>
+                            <li><i class="bi bi-check-circle "></i> Integrate controllers with our system using MQTT
+                            </li>
+                            <li><i class="bi bi-check-circle "></i>Create and deploy the Dashboard
+                            </li>
+                        </ul>
+
+                        <h5>
+                            Features that impact the model
+                        </h5>
+
+                        <ul>
+                            <li><i class="bi bi-check-circle "></i>Temperature
+                            </li>
+                            <li><i class="bi bi-check-circle "></i>Humidity
+                            </li>
+                            <li><i class="bi bi-check-circle "></i> Wind speed
+
+                            </li>
+                            <li><i class="bi bi-check-circle "></i>Intensity of light
+                            </li>
+                            <li><i class="bi bi-check-circle "></i>Atmospheric Pressure
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
 
 
 
@@ -321,7 +349,58 @@
                     <!-- End Team Section -->
 
 
+                    <!-- ======= F.A.Q Section ======= -->
+                    <section id="faq" class="faq">
+                        <div class="container" data-aos="fade-up">
+                            <header class="section-header">
+                                <h3>Extendability</h3>
+                                <p>The Plan to extend our project</p>
+                            </header>
 
+                            <ul class="faq-list" data-aso="fade-up" data-aos-delay="100">
+
+                                <li>
+                                    <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">Can be used other greenhouse setups historical data. <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+                                    <div id="faq1" class="collapse" data-bs-parent=".faq-list">
+                                        <p>
+                                        </p>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">Reinforcement learning <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+                                    <div id="faq2" class="collapse" data-bs-parent=".faq-list">
+                                        <p>
+
+                                        </p>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div data-bs-toggle="collapse" href="#faq3" class="collapsed question">Build Digital twin to check the practicality for a long periodt pellentesque habitant morbi? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+                                    <div id="faq3" class="collapse" data-bs-parent=".faq-list">
+                                        <p>
+
+                                        </p>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">Modular design so that new developer can use the existing components easily.<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+                                    <div id="faq4" class="collapse" data-bs-parent=".faq-list">
+                                        <p>
+
+                                        </p>
+                                    </div>
+                                </li>
+
+
+
+                            </ul>
+
+                        </div>
+                    </section>
+                    <!-- End F.A.Q Section -->
 
 
 
